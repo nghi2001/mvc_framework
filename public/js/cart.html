@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .product{
+            width: 20%;
+        }
+        .product:hover{
+            box-shadow: 0 0 8px rgb(80, 79, 79);
+        }
+        .product button{
+            width: 100%;
+            background-color: brown;
+            color:white;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product">
+            <div class="img">
+                <img src="../img/product/fujifilm-finepix-xp130-black-1-150x150.jpg" alt="">
+            </div>
+            <h3>Máy Ảnh</h3>
+            <div class="price">3000</div>
+            <button>Mua hàng</button>
+        </div>
+        <div class="product">
+            <div class="img">
+                <img src="../img/product/fujifilm-finepix-xp130-black-1-150x150.jpg" alt="">
+            </div>
+            <h3>Máy Ảnh 2</h3>
+            <div class="price">3000</div>
+            <button>Mua hàng</button>
+        </div>
+    </div>
+
+    <script>
+        var button_buy = document.querySelectorAll(".product button");
+
+        for( let i=0; i<button_buy.length; i++){
+            button_buy[i].addEventListener('click',(e)=>{
+                e.preventDefault();
+                let parent = e.target.parentNode;
+                let childlist = parent.children;
+                let img = childlist[0].children[0].getAttribute('src');
+                let name = childlist[1].textContent;
+                let price = childlist[2].textContent;
+
+                let product = new Product(img, name, price,0);
+                
+                cartNumber(product);
+            })
+        }
+
+        class Product{
+            constructor(anh, name, gia, inCart){
+                this.anh = anh;
+                this.name = name;
+                this.gia = gia;
+                this.inCart = inCart;
+            }
+        }
+
+        function cartNumber(product){
+            let cartNumber = localStorage.getItem("cartnumber");
+            cartNumber = parseInt(cartNumber);
+            if(cartNumber){
+                localStorage.setItem("cartnumber", cartNumber+1)
+            }else{
+                localStorage.setItem("cartnumber",1);
+            }
+            setItem(product)
+        }
+
+        function setItem(product){
+            let products = localStorage.getItem("products");
+            products = JSON.parse(products);
+            if(products != null){
+                alert('a');
+                if(product[product.name] == undefined){
+                    products = {
+                        ...products,
+                        [product.name]: product,
+                    }
+                }
+                console.log(products[product.name]);
+                products[product.name].inCart +=1;
+            }else{
+                product.inCart =1;
+                products = {
+                    [product.name]: product,
+                }
+            }
+
+            localStorage.setItem("products", JSON.stringify(products));
+        }
+    </script>
+</body>
+</html>

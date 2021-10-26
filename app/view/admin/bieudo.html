@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        #canvas{
+            width: 40px;
+            height: 50px;
+            display: flex;
+        }
+        .container{
+            width: 20%;
+        }
+        .chart_circle{
+            width: 60%;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+    <canvas id="canvas" width="200" height="-700"></canvas>
+
+    </div>
+
+    <div class="chart_circle">
+        <canvas id="circle"></canvas>
+    </div>
+
+    
+    <script>
+        const bar = document.getElementById("circle").getContext("2d");
+        const labels = [
+            'tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5', 'tháng 6', 'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10','tháng 11','tháng 12',
+        ];
+
+        const data = {
+            labels,
+            datasets: [{
+                data: [100, 1000, 2000, 50, 200, 1000, 600, 1200, 1900, 1100 ],
+                label:"Biểu đồ cột",
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+                ],
+            }],
+            
+        };
+        const config = {
+            type: "doughnut",
+            data: data,
+            options: {
+                reponsive:true,
+            },
+        };
+
+        const chart = new Chart(bar, config);
+
+        // var ctx = document.getElementById('canvas').getContext("2d");
+
+        // var labels = [
+        //     '2021',
+        //     '2022',
+        //     '2023',
+        //     '2024',
+        // ];
+        // var data = {
+        //     labels,
+        //     datasets : [
+        //         {
+        //         data:[220,10,300,500],
+        //         label:'Test',
+        //         },
+        // ],
+        //     };
+
+        // var config = {
+        //     type:"line",
+        //     data : data,
+        //     options: {
+        //         reponsive:false,
+        //     },
+        // }
+        // const myChart =new Chart(ctx, config);
+        // console.log(ctx);
+    </script>
+</body>
+</html>
